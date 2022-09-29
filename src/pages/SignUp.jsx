@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-} from "firebase/auth";
-import { setDoc, doc, serverTimestamp } from "firebase/firestore";
-import { db } from "../firbase.config";
-import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
-import visibilityIcon from "../assets/svg/visibilityIcon.svg";
+} from 'firebase/auth';
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firbase.config';
+import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
+import visibilityIcon from '../assets/svg/visibilityIcon.svg';
+import OAuth from '../components/OAuth';
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({});
@@ -40,63 +41,63 @@ function SignUp() {
       const formDataCopy = { ...formData };
       delete formDataCopy.password;
       formDataCopy.timestamp = serverTimestamp();
-      await setDoc(doc(db, "users", user.uid), formDataCopy);
-      navigate("/");
+      await setDoc(doc(db, 'users', user.uid), formDataCopy);
+      navigate('/');
     } catch (error) {
-      toast.error("something went wrong during registration!");
+      toast.error('something went wrong during registration!');
     }
   };
   return (
-    <div className="pageContainer">
+    <div className='pageContainer'>
       <header>
-        <p className="pageHeader">Welcome </p>
+        <p className='pageHeader'>Welcome </p>
       </header>
       <form onSubmit={onSubmit}>
         <input
-          type="text"
-          className="nameInput"
-          placeholder="Name"
-          id="name"
+          type='text'
+          className='nameInput'
+          placeholder='Name'
+          id='name'
           value={name}
           onChange={onChange}
         />
         <input
-          type="email"
-          className="emailInput"
-          placeholder="Email"
-          id="email"
+          type='email'
+          className='emailInput'
+          placeholder='Email'
+          id='email'
           value={email}
           onChange={onChange}
         />
-        <div className="passwordInputDiv">
+        <div className='passwordInputDiv'>
           <input
-            type={showPassword ? "text" : "password"}
-            className="passwordInput"
-            placeholder="Password"
-            id="password"
+            type={showPassword ? 'text' : 'password'}
+            className='passwordInput'
+            placeholder='Password'
+            id='password'
             value={password}
             onChange={onChange}
           />
           <img
             src={visibilityIcon}
-            className="showPassword"
-            alt="show password"
+            className='showPassword'
+            alt='show password'
             onClick={() => setShowPassword((prevState) => !prevState)}
           />
-          <Link to="/forgot-password" className="forgotPasswordLink">
+          <Link to='/forgot-password' className='forgotPasswordLink'>
             Forgot Password
           </Link>
 
-          <div className="signUpBar">
-            <p className="signUpText">Sign Up</p>
-            <button className="signUpButton">
-              <ArrowRightIcon fill="#ffffff" width="24px" height="24px" />
+          <div className='signUpBar'>
+            <p className='signUpText'>Sign Up</p>
+            <button className='signUpButton'>
+              <ArrowRightIcon fill='#ffffff' width='24px' height='24px' />
             </button>
           </div>
         </div>
       </form>
-
-      <Link to="/sign-in" className="registerLink">
+      <OAuth />
+      <Link to='/sign-in' className='registerLink'>
         Sign In Instead
       </Link>
     </div>

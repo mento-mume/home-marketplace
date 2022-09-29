@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
-import visibilityIcon from "../assets/svg/visibilityIcon.svg";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
+import visibilityIcon from '../assets/svg/visibilityIcon.svg';
+import OAuth from '../components/OAuth';
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({});
@@ -29,55 +30,55 @@ function SignIn() {
       );
 
       if (userCredential.user) {
-        navigate("/");
+        navigate('/');
       }
     } catch (error) {
-      toast.error("invalid user credentials");
+      toast.error('invalid user credentials');
     }
   };
   return (
-    <div className="pageContainer">
+    <div className='pageContainer'>
       <header>
-        <p className="pageHeader">Welcome Back!</p>
+        <p className='pageHeader'>Welcome Back!</p>
       </header>
       <form onSubmit={onSubmit}>
         <input
-          type="email"
-          className="emailInput"
-          placeholder="Email"
-          id="email"
+          type='email'
+          className='emailInput'
+          placeholder='Email'
+          id='email'
           value={email}
           onChange={onChange}
         />
-        <div className="passwordInputDiv">
+        <div className='passwordInputDiv'>
           <input
-            type={showPassword ? "text" : "password"}
-            className="passwordInput"
-            placeholder="Password"
-            id="password"
+            type={showPassword ? 'text' : 'password'}
+            className='passwordInput'
+            placeholder='Password'
+            id='password'
             value={password}
             onChange={onChange}
           />
           <img
             src={visibilityIcon}
-            className="showPassword"
-            alt="show password"
+            className='showPassword'
+            alt='show password'
             onClick={() => setShowPassword((prevState) => !prevState)}
           />
-          <Link to="/forgot-password" className="forgotPasswordLink">
+          <Link to='/forgot-password' className='forgotPasswordLink'>
             Forgot Password
           </Link>
 
-          <div className="signInBar">
-            <p className="signInText">Sign In</p>
-            <button className="signInButton">
-              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
+          <div className='signInBar'>
+            <p className='signInText'>Sign In</p>
+            <button className='signInButton'>
+              <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
             </button>
           </div>
         </div>
       </form>
-
-      <Link to="/sign-up" className="registerLink">
+      <OAuth />
+      <Link to='/sign-up' className='registerLink'>
         Sign Up Instead
       </Link>
     </div>
