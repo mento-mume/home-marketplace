@@ -66,7 +66,7 @@ function CreateListings() {
       setloading(false);
       toast.error("Max images to uploaded is 6");
     }
-    let geoLocation = {};
+    let geolocation = {};
     let location;
 
     if (geoLocationEnabled) {
@@ -74,9 +74,9 @@ function CreateListings() {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
       );
       const data = await response.json();
-      geoLocation.lat = data.results[0]?.geometry.location.lat ?? 0;
-      geoLocation.lat = data.results[0]?.geometry.location.lng ?? 0;
-
+      geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
+      geolocation.lat = data.results[0]?.geometry.location.lng ?? 0;
+      console.log();
       location =
         data.status === "ZERO_RESULTS"
           ? undefined
@@ -88,8 +88,8 @@ function CreateListings() {
         return;
       }
     } else {
-      geoLocation.lat = latitude;
-      geoLocation.lng = longitude;
+      geolocation.lat = latitude;
+      geolocation.lng = longitude;
     }
 
     //store images in firebase
@@ -142,7 +142,7 @@ function CreateListings() {
     const formDataCopy = {
       ...formData,
       imageUrls,
-      geoLocation,
+      geolocation,
       timestamp: serverTimestamp(),
     };
 
