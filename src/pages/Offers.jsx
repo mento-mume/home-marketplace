@@ -47,11 +47,11 @@ function Offers() {
         setListings(listings);
         setLoading(false);
       } catch (error) {
-        toast.error("could not get listings");
+        toast.error("could not fetch listings");
       }
     };
     fetchListings();
-  });
+  }, []);
 
   //pagination/ fetch more listings
   const onFetchMoreListings = async () => {
